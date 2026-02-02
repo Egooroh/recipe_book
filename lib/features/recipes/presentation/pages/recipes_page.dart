@@ -32,7 +32,7 @@ class RecipesPage extends StatelessWidget {
                   },
                 ),
 
-                title: const Text('Бабушкины рецепты'),
+                title: const Text('Традиции вкуса'),
 
                 actions: [
                   IconButton(

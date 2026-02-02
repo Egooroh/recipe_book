@@ -1,4 +1,10 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 part of 'recipe_model.dart';
+
+// **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
 
 class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
   @override
@@ -14,6 +20,7 @@ class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
       id: fields[0] as String,
       title: fields[1] as String,
       description: fields[2] as String,
+      traditionDescription: fields[8] as String,
       ingredients: (fields[3] as List).cast<IngredientModel>(),
       steps: (fields[4] as List).cast<String>(),
       imagePath: fields[5] as String?,
@@ -25,7 +32,7 @@ class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
   @override
   void write(BinaryWriter writer, RecipeModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +48,9 @@ class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
       ..writeByte(6)
       ..write(obj.category)
       ..writeByte(7)
-      ..write(obj.isFavorite);
+      ..write(obj.isFavorite)
+      ..writeByte(8)
+      ..write(obj.traditionDescription);
   }
 
   @override

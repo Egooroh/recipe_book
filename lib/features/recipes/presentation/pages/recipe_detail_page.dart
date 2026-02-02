@@ -118,15 +118,45 @@ class RecipeDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    Text("История блюда", style: theme.textTheme.headlineSmall),
-                    const SizedBox(height: 8),
                     Text(
                       recipe.description,
-                      style: theme.textTheme.bodyLarge?.copyWith(height: 1.5),
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        height: 1.5,
+                        fontStyle: FontStyle.italic,
+                        color: theme.textTheme.bodyLarge?.color?.withOpacity(0.8),
+                      ),
                     ),
+
                     const SizedBox(height: 24),
                     const Divider(),
                     const SizedBox(height: 24),
+
+                    if (recipe.traditionDescription.isNotEmpty) ...[
+                      Row(
+                        children: [
+                          Icon(Icons.history_edu, color: theme.primaryColor),
+                          const SizedBox(width: 8),
+                          Text("Традиции вкуса", style: theme.textTheme.headlineSmall),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.secondary.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: theme.primaryColor.withOpacity(0.2)),
+                        ),
+                        child: Text(
+                          recipe.traditionDescription,
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            height: 1.6,
+                            fontFamily: 'PlaypenSans',
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                    ],
 
                     Text("Ингредиенты", style: theme.textTheme.headlineSmall),
                     const SizedBox(height: 16),

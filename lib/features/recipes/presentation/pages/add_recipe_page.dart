@@ -18,10 +18,20 @@ class _AddRecipePageState extends State<AddRecipePage> {
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
   final _categoryController = TextEditingController();
-
   final _ingredientsController = TextEditingController();
+  final _traditionController = TextEditingController();
 
   String? _imagePath;
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descController.dispose();
+    _categoryController.dispose();
+    _ingredientsController.dispose();
+    _traditionController.dispose();
+    super.dispose();
+  }
 
   void _saveRecipe() {
     if (_formKey.currentState!.validate()) {
@@ -35,6 +45,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
         id: const Uuid().v4(),
         title: _titleController.text,
         description: _descController.text,
+        traditionDescription: _traditionController.text,
         ingredients: ingredientsList,
         steps: const [],
         imagePath: _imagePath,
@@ -49,11 +60,15 @@ class _AddRecipePageState extends State<AddRecipePage> {
   }
 
   Future<void> _pickImage() async {
-    final path = await ImageHelper.pickAndSaveImage();
-    if (path != null) {
-      setState(() {
-        _imagePath = path;
-      });
+    try {
+      final path = await ImageHelper.pickAndSaveImage();
+      if (path != null) {
+        setState(() {
+          _imagePath = path;
+        });
+      }
+    } catch (e) {
+      debugPrint('Ошибка выбора фото: $e');
     }
   }
 
@@ -91,17 +106,30 @@ class _AddRecipePageState extends State<AddRecipePage> {
               validator: (v) => v!.isEmpty ? 'Введите название' : null,
             ),
             const SizedBox(height: 12),
+
             TextFormField(
               controller: _categoryController,
               decoration: const InputDecoration(labelText: 'Категория (напр. Супы)'),
             ),
             const SizedBox(height: 12),
+
             TextFormField(
               controller: _descController,
-              decoration: const InputDecoration(labelText: 'Описание / История'),
+              decoration: const InputDecoration(labelText: 'Краткое описание'),
+              maxLines: 2,
+            ),
+            const SizedBox(height: 12),
+
+            TextFormField(
+              controller: _traditionController,
+              decoration: const InputDecoration(
+                labelText: 'История / Традиция',
+                hintText: 'Откуда этот рецепт?',
+              ),
               maxLines: 3,
             ),
             const SizedBox(height: 12),
+
             TextFormField(
               controller: _ingredientsController,
               decoration: const InputDecoration(

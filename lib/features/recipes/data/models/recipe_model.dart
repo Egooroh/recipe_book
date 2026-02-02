@@ -21,20 +21,24 @@ class RecipeModel extends Recipe {
   final String category;
   @HiveField(7)
   final bool isFavorite;
+  @HiveField(8)
+  final String traditionDescription;
 
   const RecipeModel({
     required this.id,
     required this.title,
     required this.description,
+    required this.traditionDescription,
     required this.ingredients,
     required this.steps,
     this.imagePath,
     required this.category,
-    required this.isFavorite,
+    this.isFavorite = false,
   }) : super(
     id: id,
     title: title,
     description: description,
+    traditionDescription: traditionDescription,
     ingredients: ingredients,
     steps: steps,
     imagePath: imagePath,
@@ -47,8 +51,9 @@ class RecipeModel extends Recipe {
       id: recipe.id,
       title: recipe.title,
       description: recipe.description,
+      traditionDescription: recipe.traditionDescription,
       ingredients: recipe.ingredients
-          .map((e) => IngredientModel.fromEntity(e))
+          .map((e) => IngredientModel(name: e.name, amount: e.amount))
           .toList(),
       steps: recipe.steps,
       imagePath: recipe.imagePath,
@@ -67,11 +72,4 @@ class IngredientModel extends Ingredient {
 
   const IngredientModel({required this.name, required this.amount})
       : super(name: name, amount: amount);
-
-  factory IngredientModel.fromEntity(Ingredient ingredient) {
-    return IngredientModel(
-      name: ingredient.name,
-      amount: ingredient.amount,
-    );
-  }
 }

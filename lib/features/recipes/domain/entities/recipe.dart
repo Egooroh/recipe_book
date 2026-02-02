@@ -1,22 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class Ingredient extends Equatable {
-  final String name;
-  final String amount;
-
-  const Ingredient({
-    required this.name,
-    required this.amount,
-  });
-
-  @override
-  List<Object?> get props => [name, amount];
-}
-
 class Recipe extends Equatable {
   final String id;
   final String title;
   final String description;
+  final String traditionDescription;
   final List<Ingredient> ingredients;
   final List<String> steps;
   final String? imagePath;
@@ -27,6 +15,7 @@ class Recipe extends Equatable {
     required this.id,
     required this.title,
     required this.description,
+    required this.traditionDescription,
     required this.ingredients,
     required this.steps,
     this.imagePath,
@@ -38,6 +27,7 @@ class Recipe extends Equatable {
     String? id,
     String? title,
     String? description,
+    String? traditionDescription,
     List<Ingredient>? ingredients,
     List<String>? steps,
     String? imagePath,
@@ -48,6 +38,7 @@ class Recipe extends Equatable {
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
+      traditionDescription: traditionDescription ?? this.traditionDescription,
       ingredients: ingredients ?? this.ingredients,
       steps: steps ?? this.steps,
       imagePath: imagePath ?? this.imagePath,
@@ -58,13 +49,16 @@ class Recipe extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    title,
-    description,
-    ingredients,
-    steps,
-    imagePath,
-    category,
-    isFavorite,
+    id, title, description, traditionDescription, ingredients, steps, imagePath, category, isFavorite
   ];
+}
+
+class Ingredient extends Equatable {
+  final String name;
+  final String amount;
+
+  const Ingredient({required this.name, required this.amount});
+
+  @override
+  List<Object?> get props => [name, amount];
 }
